@@ -1,0 +1,47 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e4]:
+        - generic [ref=e5]:
+          - generic [ref=e6]: W
+          - generic [ref=e7]:
+            - paragraph [ref=e8]: WayFinder
+            - heading "Inspiration photo → real Wayfair cart" [level=1] [ref=e9]
+        - button "Start over" [ref=e33]
+    - main [ref=e10]:
+      - generic [ref=e34]:
+        - img "Inspiration" [ref=e37]
+        - generic [ref=e215]:
+          - generic [ref=e216]:
+            - paragraph [ref=e217]: Your Wayfair cart
+            - generic [ref=e218]:
+              - paragraph [ref=e219]: $605
+              - paragraph [ref=e220]: 3 pieces
+          - list [ref=e221]:
+            - listitem [ref=e222]:
+              - generic [ref=e224]:
+                - paragraph [ref=e225]: Acrylic nesting table
+                - link "Ivy Bronx Acrylic Drink Table, Clear End Table Round Top with Solid Post Modern Acrylic Cake Table Stand Transparent Side Desk For Coffee Drink Food Snack Easy Assembly 10 X 10 X 21.3 In Clear" [ref=e226] [cursor=pointer]:
+                  - /url: https://www.wayfair.com/furniture/pdp/ivy-bronx-acrylic-drink-table-clear-end-table-round-top-with-solid-post-modern-acrylic-cake-table-stand-transparent-side-desk-for-coffee-drink-food-snack-easy-assembly-10-x-10-x-213-in-clear-w116063074.html
+                - paragraph [ref=e227]: Selecting the acrylic table is the best compromise among limited options to maintain visual transparency, even though the gold tone is missing.
+              - paragraph [ref=e228]: $150
+            - listitem [ref=e229]:
+              - generic [ref=e231]:
+                - paragraph [ref=e232]: Modern media cabinet
+                - link "Latitude Run® 63-inch TV cabinet, table-top, media entertainment center, storage cabinet, living room, bedroom, matte white melamine board, modern, contemporary" [ref=e233] [cursor=pointer]:
+                  - /url: https://www.wayfair.com/furniture/pdp/latitude-run-63-inch-tv-cabinet-table-top-media-entertainment-center-storage-cabinet-living-room-bedroom-matte-white-melamine-board-modern-contemporary-w117898466.html
+                - paragraph [ref=e234]: This media console provides the correct matte white finish and modern proportions seen in the inspiration, despite lacking the specific wood accents.
+              - paragraph [ref=e235]: $305
+            - listitem [ref=e236]:
+              - generic [ref=e238]:
+                - paragraph [ref=e239]: Abstract area rug
+                - link "Ebern Designs Abstract Geometric Pattern Shag Rug – Anthracite Dark Gray - Wayfair" [ref=e240] [cursor=pointer]:
+                  - /url: https://www.wayfair.com/rugs/pdp/ebern-designs-abstract-geometric-pattern-shag-rug-anthracite-dark-gray-medium-pile-durable-stylish-w115444114.html
+                - paragraph [ref=e241]: The geometric block pattern and grey/anthracite tones perfectly complement the minimalist aesthetic and the yellow chair accent.
+              - paragraph [ref=e242]: $150
+          - generic [ref=e243]:
+            - paragraph [ref=e244]: Curator notes
+            - paragraph [ref=e245]: The assembled cart successfully recreates the high-contrast, minimalist vibe of the inspiration, particularly through the yellow chair (implied) and grey rug pairing. However, the replacement side table is a slight visual letdown; the transparent acrylic creates a 'disappearing' effect that conflicts with the inspiration's distinct gold hardware, and the heavy white media console feels a bit more bulky than the sleek floating unit in the reference.
+  - button "Open Next.js Dev Tools" [ref=e28] [cursor=pointer]:
+    - img [ref=e29]
+  - alert [ref=e32]: Inspiration photo → real Wayfair cart

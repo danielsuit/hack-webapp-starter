@@ -1,5 +1,5 @@
-import { ChatApp } from "@/components/chat-app";
+import { WayFinder } from "@/components/wayfinder";
 
 export default function Home() {
-  return <ChatApp />;
+  return <WayFinder />;
 }

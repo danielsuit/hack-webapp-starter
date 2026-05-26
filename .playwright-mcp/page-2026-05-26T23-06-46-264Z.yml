@@ -1,0 +1,21 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e5]:
+        - generic [ref=e6]: W
+        - generic [ref=e7]:
+          - paragraph [ref=e8]: WayFinder
+          - heading "Inspiration photo → real Wayfair cart" [level=1] [ref=e9]
+    - main [ref=e10]:
+      - generic [ref=e11]:
+        - generic [ref=e12]:
+          - heading "Drop a photo of a room you love." [level=2] [ref=e13]
+          - paragraph [ref=e14]: Four agents will extract the visual DNA, identify each piece, search Wayfair, and build you a real cart that matches.
+        - generic [ref=e15] [cursor=pointer]:
+          - img [ref=e17]
+          - paragraph [ref=e20]: Drag and drop, or click to choose
+          - paragraph [ref=e21]: JPG or PNG · 1 image
+        - paragraph [ref=e22]: Powered by Subconscious · Wayfair · Tavily
+  - button "Open Next.js Dev Tools" [ref=e28] [cursor=pointer]:
+    - img [ref=e29]
+  - alert [ref=e32]

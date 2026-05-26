@@ -1,0 +1,38 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e4]:
+        - button "wayfinder" [ref=e5]:
+          - generic [ref=e6]:
+            - generic [ref=e7]: wayfinder
+            - img [ref=e8]
+        - generic [ref=e10]:
+          - img [ref=e11]
+          - generic [ref=e14]: Drop a photo to begin
+        - generic [ref=e16]:
+          - img [ref=e17]
+          - generic [ref=e21]: Cart
+    - main [ref=e22]:
+      - generic [ref=e23]:
+        - generic [ref=e24]:
+          - paragraph [ref=e25]: New · AI Stylist
+          - heading "Find the look. Get the cart." [level=1] [ref=e27]
+          - paragraph [ref=e28]: Drop one photo of a room you love. Four AI agents extract the visual DNA, identify each piece, and assemble a real Wayfair cart that matches.
+        - generic [ref=e29] [cursor=pointer]:
+          - img [ref=e31]
+          - paragraph [ref=e34]: Drag a photo here, or click to choose
+          - paragraph [ref=e35]: JPG · PNG · WebP up to 10 MB
+        - generic [ref=e36]:
+          - generic [ref=e37]:
+            - img [ref=e39]
+            - generic [ref=e42]: Real Wayfair links
+          - generic [ref=e43]:
+            - img [ref=e45]
+            - generic [ref=e48]: Under 60 seconds
+          - generic [ref=e49]:
+            - img [ref=e51]
+            - generic [ref=e53]: One-click checkout
+    - contentinfo [ref=e54]: Inspired by Wayfair · Built on Subconscious · Search by Tavily
+  - button "Open Next.js Dev Tools" [ref=e60] [cursor=pointer]:
+    - img [ref=e61]
+  - alert [ref=e64]

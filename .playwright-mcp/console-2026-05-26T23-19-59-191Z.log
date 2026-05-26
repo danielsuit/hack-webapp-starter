@@ -1,0 +1,9 @@
+[     213ms] [ERROR] Failed to load resource: the server responded with a status of 429 () @ https://www.wayfair.com/:0
+[     766ms] [LOG] %c EvalError
+    at jK (https://client.px-cloud.net/PX3Vk96I6i/main.min.js:2:60337)
+    at lL (https://client.px-cloud.net/PX3Vk96I6i/main.min.js:2:64552)
+    at Dh (https://client.px-cloud.net/PX3Vk96I6i/main.min.js:4:11403)
+    at Df (https://client.px-cloud.net/PX3Vk96I6i/main.min.js:4:11020)
+    at https://client.px-cloud.net/PX3Vk96I6i/main.min.js:4:12767
+    at https://client.px-cloud.net/PX3Vk96I6i/main.min.js:4:12773
+    at https://client.px-cloud.net/PX3Vk96I6i/main.min.js:4:13238 @ https://client.px-cloud.net/PX3Vk96I6i/main.min.js:1
