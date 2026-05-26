@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import type {
   Candidate,
   CurateResponse,
@@ -37,21 +37,6 @@ function fmtUSD(value: number): string {
 
 function styleContextString(profile: StyleProfile): string {
   return `${profile.era_or_style}; ${profile.formality}; materials: ${profile.materials.join(", ")}; keywords: ${profile.style_keywords.join(", ")}; palette: ${profile.palette.join(", ")}`;
-}
-
-function hashSeed(input: string): number {
-  let hash = 0;
-  for (let i = 0; i < input.length; i++) {
-    hash = (hash * 31 + input.charCodeAt(i)) | 0;
-  }
-  return Math.abs(hash);
-}
-
-function fakeRating(url: string): { stars: number; count: number } {
-  const seed = hashSeed(url);
-  const stars = 4 + ((seed % 10) / 10) * 0.9; // 4.0 - 4.9
-  const count = 50 + (seed % 4000);
-  return { stars: Math.round(stars * 10) / 10, count };
 }
 
 export function WayFinder() {
@@ -260,61 +245,15 @@ function Header({ stage, onReset }: { stage: Stage; onReset: () => void }) {
           <WordmarkLogo />
         </button>
 
-        <div className="hidden flex-1 max-w-2xl items-center rounded-md border border-[#e3e3e6] bg-[#f6f6f8] px-3 py-2 text-sm text-[#5a5a5a] md:flex">
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="mr-2 h-4 w-4"
+        {stage !== "empty" && (
+          <button
+            type="button"
+            onClick={onReset}
+            className="rounded-md px-3 py-1.5 text-xs font-semibold text-[#7b189f] hover:bg-[#f6ecf9]"
           >
-            <circle cx="11" cy="11" r="7" />
-            <path d="m21 21-4.3-4.3" />
-          </svg>
-          <span className="truncate">
-            {stage === "empty"
-              ? "Drop a photo to begin"
-              : stage === "parsing"
-                ? "Reading the room…"
-                : stage === "parsed"
-                  ? "Review your detected pieces"
-                  : stage === "shopping" || stage === "curating"
-                    ? "Searching Wayfair in parallel"
-                    : "Your cart is ready"}
-          </span>
-        </div>
-
-        <div className="flex items-center gap-1">
-          {stage !== "empty" && (
-            <button
-              type="button"
-              onClick={onReset}
-              className="rounded-md px-3 py-1.5 text-xs font-semibold text-[#7b189f] hover:bg-[#f6ecf9]"
-            >
-              Start over
-            </button>
-          )}
-          <div className="flex items-center gap-1.5 rounded-md border border-[#e3e3e6] px-3 py-1.5 text-sm">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="h-4 w-4 text-[#1f1f1f]"
-            >
-              <circle cx="9" cy="21" r="1" />
-              <circle cx="20" cy="21" r="1" />
-              <path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6" />
-            </svg>
-            <span className="text-xs font-medium tabular-nums">
-              {stage === "final" ? "Checkout" : "Cart"}
-            </span>
-          </div>
-        </div>
+            Start over
+          </button>
+        )}
       </div>
     </header>
   );
@@ -422,11 +361,11 @@ function EmptyState({
               strokeWidth="2"
               className="h-4 w-4"
             >
-              <path d="M5 12h14" />
-              <path d="M12 5l7 7-7 7" />
+              <circle cx="12" cy="12" r="9" />
+              <path d="M9 12l2 2 4-4" />
             </svg>
           }
-          label="One-click checkout"
+          label="Style notes included"
         />
       </div>
     </div>
@@ -692,9 +631,6 @@ function ParsedPanel({
         >
           Shop these on Wayfair
         </button>
-        <p className="mt-2 text-center text-[10px] uppercase tracking-wider text-[#0f8050]">
-          ★ Free shipping over $35
-        </p>
       </div>
     </div>
   );
@@ -853,27 +789,6 @@ function StatusBadge({ status }: { status: SlotStatus }) {
   return null;
 }
 
-function StarRating({ url }: { url: string }) {
-  const { stars, count } = useMemo(() => fakeRating(url), [url]);
-  return (
-    <div className="flex items-center gap-1.5">
-      <div className="flex">
-        {[0, 1, 2, 3, 4].map((i) => (
-          <svg
-            key={i}
-            viewBox="0 0 24 24"
-            className={`h-3 w-3 ${i < Math.round(stars) ? "fill-[#f6b418]" : "fill-[#e3e3e6]"}`}
-          >
-            <path d="M12 0 L14 9 L23 11 L14 13 L12 22 L10 13 L1 11 L10 9 Z" />
-          </svg>
-        ))}
-      </div>
-      <span className="text-[10px] font-medium text-[#1f1f1f]">{stars}</span>
-      <span className="text-[10px] text-[#5a5a5a]">({count})</span>
-    </div>
-  );
-}
-
 function ProductCard({ candidate }: { candidate: Candidate }) {
   return (
     <a
@@ -882,36 +797,18 @@ function ProductCard({ candidate }: { candidate: Candidate }) {
       rel="noreferrer"
       className="block"
     >
-      <div className="relative">
-        {candidate.image_url ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={candidate.image_url}
-            alt={candidate.title}
-            className="aspect-square w-full rounded-lg bg-[#f6f6f8] object-cover"
-          />
-        ) : (
-          <div className="grid aspect-square w-full place-items-center rounded-lg bg-[#f6f6f8] text-[11px] uppercase tracking-wider text-[#9a9a9e]">
-            No image
-          </div>
-        )}
-        <button
-          type="button"
-          onClick={(e) => e.preventDefault()}
-          className="absolute right-2 top-2 grid h-7 w-7 place-items-center rounded-full bg-white/95 text-[#5a5a5a] shadow-sm hover:text-[#d62828]"
-          aria-label="Save"
-        >
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            className="h-3.5 w-3.5"
-          >
-            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-          </svg>
-        </button>
-      </div>
+      {candidate.image_url ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={candidate.image_url}
+          alt={candidate.title}
+          className="aspect-square w-full rounded-lg bg-[#f6f6f8] object-cover"
+        />
+      ) : (
+        <div className="grid aspect-square w-full place-items-center rounded-lg bg-[#f6f6f8] text-[11px] uppercase tracking-wider text-[#9a9a9e]">
+          No image
+        </div>
+      )}
       <div className="mt-2.5">
         <p className="line-clamp-2 text-sm leading-snug text-[#1f1f1f] hover:underline">
           {candidate.title}
@@ -919,19 +816,11 @@ function ProductCard({ candidate }: { candidate: Candidate }) {
         <p className="mt-1 text-lg font-bold tabular-nums text-[#1f1f1f]">
           {fmtUSD(candidate.price_usd)}
         </p>
-        <StarRating url={candidate.product_url} />
-        <p className="mt-1.5 inline-flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wider text-[#0f8050]">
-          <svg
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            className="h-3 w-3"
-          >
-            <path d="M3 7h11v7H3zM14 10h4l3 3v4h-7z" />
-            <circle cx="7" cy="17" r="2" fill="white" stroke="currentColor" />
-            <circle cx="17" cy="17" r="2" fill="white" stroke="currentColor" />
-          </svg>
-          Free shipping
-        </p>
+        {candidate.dimensions && (
+          <p className="mt-0.5 text-[11px] text-[#5a5a5a]">
+            {candidate.dimensions}
+          </p>
+        )}
         <p className="mt-2 line-clamp-2 text-[11px] italic text-[#5a5a5a]">
           {candidate.match_rationale}
         </p>
@@ -976,10 +865,6 @@ function FinalCartPanel({
   items: DetectedItem[];
 }) {
   const slotMap = new Map(items.map((item) => [item.slot_id, item]));
-  const subtotal = curate.total_price_usd;
-  const shipping = 0;
-  const tax = Math.round(subtotal * 0.0625 * 100) / 100;
-  const total = subtotal + shipping + tax;
 
   return (
     <div className="flex h-full flex-col gap-4">
@@ -1024,27 +909,13 @@ function FinalCartPanel({
                   >
                     {entry.selected.title}
                   </a>
-                  <p className="mt-1 text-[10px] font-semibold uppercase tracking-wider text-[#0f8050]">
-                    Free shipping
+                  <p className="mt-1 text-[11px] italic text-[#5a5a5a]">
+                    {entry.reason}
                   </p>
-                  <div className="mt-1.5 flex gap-3 text-[11px]">
-                    <button type="button" className="text-[#7b189f] hover:underline">
-                      Save for later
-                    </button>
-                    <span className="text-[#e3e3e6]">·</span>
-                    <button type="button" className="text-[#5a5a5a] hover:text-[#1f1f1f] hover:underline">
-                      Remove
-                    </button>
-                  </div>
                 </div>
                 <div className="shrink-0 text-right">
                   <p className="text-base font-bold tabular-nums text-[#1f1f1f]">
                     {fmtUSD(entry.selected.price_usd)}
-                  </p>
-                  <p className="mt-0.5 text-[10px] italic text-[#5a5a5a]">
-                    {entry.reason.length > 60
-                      ? entry.reason.slice(0, 60) + "…"
-                      : entry.reason}
                   </p>
                 </div>
               </li>
@@ -1052,37 +923,11 @@ function FinalCartPanel({
           })}
         </ul>
 
-        <div className="border-t border-[#e3e3e6] bg-[#f6f6f8] px-5 py-4">
-          <dl className="space-y-1.5 text-sm">
-            <div className="flex justify-between">
-              <dt className="text-[#5a5a5a]">Subtotal</dt>
-              <dd className="font-medium tabular-nums">{fmtUSD(subtotal)}</dd>
-            </div>
-            <div className="flex justify-between">
-              <dt className="text-[#5a5a5a]">Shipping</dt>
-              <dd className="font-semibold tabular-nums text-[#0f8050]">FREE</dd>
-            </div>
-            <div className="flex justify-between">
-              <dt className="text-[#5a5a5a]">Est. tax</dt>
-              <dd className="font-medium tabular-nums">{fmtUSD(tax)}</dd>
-            </div>
-            <div className="mt-2 flex justify-between border-t border-[#e3e3e6] pt-2 text-base font-bold">
-              <dt>Estimated total</dt>
-              <dd className="tabular-nums">{fmtUSD(total)}</dd>
-            </div>
-          </dl>
-          <button
-            type="button"
-            className="mt-4 w-full rounded-md bg-[#1f1f1f] px-4 py-3 text-sm font-bold uppercase tracking-wide text-white hover:bg-black"
-          >
-            Proceed to checkout
-          </button>
-          <button
-            type="button"
-            className="mt-2 w-full rounded-md border border-[#1f1f1f] bg-white px-4 py-2.5 text-sm font-semibold text-[#1f1f1f] hover:bg-[#f6f6f8]"
-          >
-            Continue shopping
-          </button>
+        <div className="flex items-baseline justify-between border-t border-[#e3e3e6] bg-[#f6f6f8] px-5 py-4">
+          <span className="text-sm font-semibold text-[#5a5a5a]">Subtotal</span>
+          <span className="text-2xl font-bold tabular-nums text-[#1f1f1f]">
+            {fmtUSD(curate.total_price_usd)}
+          </span>
         </div>
       </div>
 
